@@ -5,12 +5,26 @@ class Provider extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      cars: {
+        red: false,
+        blue: false,
+        yellow: false,
+        moveCar: this.moveCar,
+      },
+    };
+  }
+
+  moveCar = (car, side) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      cars: { ...prevState.cars, [car]: side },
+    }))
   }
 
   render() {
     const { children } = this.props;
-    const state = { ...this.state }
+    const state = { ...this.state, moveCar: this.moveCar }
     return (
       <MyContext.Provider value={state}>
         {children}
